@@ -15,6 +15,7 @@ CREATE TABLE Sirene (
 CREATE SEQUENCE testentry_sequence;
 CREATE TABLE TestEntry (
        TestEntryID INT NOT NULL DEFAULT nextval('testentry_sequence') PRIMARY KEY,
+       SireneID INT NOT NULL REFERENCES Sirene (SireneID),
        TestYear INT NOT NULL,
        FirstAutomaticOK BOOLEAN NOT NULL,
        SecondAutomaticOK BOOLEAN NOT NULL,
