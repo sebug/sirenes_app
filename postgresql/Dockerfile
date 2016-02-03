@@ -20,6 +20,8 @@ RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* 
 ENV LANG en_US.utf8
 
 RUN mkdir /docker-entrypoint-initdb.d
+# Now add the scripts for table creation
+COPY 01.create_tables.sql /docker-entrypoint-initdb.d/
 
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 
@@ -43,6 +45,9 @@ ENV PGDATA /var/lib/postgresql/data
 VOLUME /var/lib/postgresql/data
 
 COPY docker-entrypoint.sh /
+CMD ["chmod a+rwx /docker-entrypoint.sh"]
+
+CMD ["ls -la /"]
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
